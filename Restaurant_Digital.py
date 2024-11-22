@@ -54,18 +54,12 @@ class Restaurante:
         else:
             return "Código de descuento no válido."
 
+   class Restaurante:
     def finalizar_pedido(self):
-        # Método actualizado con soporte para descuentos
+        if not self.orders:
+            return "No ha realizado ningún pedido. Por favor, añada platos antes de finalizar."
+        
 
-    if self.orders:
-        final_summary = "¡Gracias por su pedido! Aquí está el resumen final:\n"
-        final_summary += self.display_orders()
-        total_a_pagar = sum(order[2] for order in self.orders)
-        total_items = sum(order[1] for order in self.orders)
-
-        final_summary += f"Cantidad total de platos: {total_items}\n"
-        final_summary += f"Total a pagar: ${total_a_pagar}"
-        return final_summary
     else:
         return "No ha realizado ningún pedido."
 
