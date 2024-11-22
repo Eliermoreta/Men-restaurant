@@ -115,29 +115,23 @@ root.title("Restaurante")
 
 restaurante = Restaurante()
 
+# Sustituir el bloque donde se define el menú y el marco (menu_frame)
 menu_frame = tk.Frame(root, bg="white", bd=2)
-menu_frame.pack(side=tk.LEFT, padx=20)
+menu_frame.pack(side=tk.LEFT, padx=20, fill=tk.Y)
 
-menu_label = tk.Label(menu_frame, text=restaurante.menu.display_menu(), bg="black", fg="white", font=("Arial", 14))
-menu_label.pack()
+menu_scrollbar = tk.Scrollbar(menu_frame)
+menu_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
-item_label = tk.Label(root, text="Plato:", bg="black", fg="white", font=("Arial", 14))
-item_label.pack(side=tk.LEFT, padx=10)
-item_entry = tk.Entry(root)
-item_entry.pack(side=tk.LEFT, padx=5)
+menu_label = tk.Text(menu_frame, bg="black", fg="white", font=("Arial", 14), wrap=tk.WORD, yscrollcommand=menu_scrollbar.set)
+menu_label.insert(tk.END, restaurante.menu.display_menu())
+menu_label.config(state=tk.DISABLED)
+menu_label.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
-quantity_label = tk.Label(root, text="Cantidad:", bg="black", fg="white", font=("Arial", 14))
-quantity_label.pack(side=tk.LEFT, padx=5)
-quantity_entry = tk.Entry(root)
-quantity_entry.pack(side=tk.LEFT, padx=5)
+menu_scrollbar.config(command=menu_label.yview)
 
-order_button = tk.Button(root, text="Realizar Pedido", command=make_order, bg="green", fg="white", font=("Arial", 15))
-order_button.pack(side=tk.LEFT, padx=10)
+# Sustituir el diseño del result_label
+result_label = tk.Label(root, text="", bg="lightgrey", fg="blue", font=("Arial", 12))
+result_label.pack(side=tk.LEFT, padx=10, fill=tk.X)
 
-finish_button = tk.Button(root, text="Finalizar Pedido", command=finish_order, bg="red", fg="white", font=("Arial", 15))
-finish_button.pack(side=tk.LEFT, padx=10)
-
-result_label = tk.Label(root, text="", bg="white", fg="red", font=("Arial", 12))
-result_label.pack(side=tk.LEFT, padx=10)
 
 root.mainloop()
