@@ -67,15 +67,17 @@ class Restaurante:
         return orders_text
 
     def finalizar_pedido(self):
-        # Método para finalizar el pedido y mostrar el resumen final
-        if self.orders:
-            final_summary = "¡Gracias por su pedido! Aquí está el resumen final:\n"
-            final_summary += self.display_orders()
-            total_a_pagar = sum(order[2] for order in self.orders)
-            final_summary += f"Total a pagar: ${total_a_pagar}"
-            return final_summary
-        else:
-            return "No ha realizado ningún pedido."
+    if self.orders:
+        final_summary = "¡Gracias por su pedido! Aquí está el resumen final:\n"
+        final_summary += self.display_orders()
+        total_a_pagar = sum(order[2] for order in self.orders)
+        total_items = sum(order[1] for order in self.orders)
+
+        final_summary += f"Cantidad total de platos: {total_items}\n"
+        final_summary += f"Total a pagar: ${total_a_pagar}"
+        return final_summary
+    else:
+        return "No ha realizado ningún pedido."
 
 def make_order():
     # Obtiene el texto ingresado por el usuario para el plato
