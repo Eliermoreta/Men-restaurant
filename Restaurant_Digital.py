@@ -78,28 +78,28 @@ class Restaurante:
             return "No ha realizado ningún pedido."
 
 def make_order():
-    # Obtiene el texto ingresado por el usuario para el plato
     item = item_entry.get().strip()
-    
-    # Verifica si la cadena está vacía
     if not item:
         result_label.config(text="¡Error! Por favor, ingrese un nombre de plato.")
         return
-    
-    # Obtiene el texto ingresado por el usuario para la cantidad
+
     quantity_text = quantity_entry.get().strip()
-    
-    # Verifica si la cantidad ingresada es un número entero
     if not quantity_text.isdigit():
         result_label.config(text="¡Error! Por favor, ingrese un número entero para la cantidad.")
         return
-    
-    # Convierte la cantidad a un número entero
+
     quantity = int(quantity_text)
-    
-    # Realiza el pedido utilizando el método take_order del restaurante
+    if quantity <= 0:
+        result_label.config(text="¡Error! La cantidad debe ser un número positivo.")
+        return
+
+    if item.lower() not in restaurante.menu.menu_items:
+        result_label.config(text="¡Error! Ese plato no existe en el menú.")
+        return
+
     result = restaurante.take_order(item, quantity)
     result_label.config(text=result)
+
 
 def finish_order():
     result = restaurante.finalizar_pedido()
