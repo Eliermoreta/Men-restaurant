@@ -42,31 +42,21 @@ class Menu:
 
 class Restaurante:
     def __init__(self):
-        # Inicialización del restaurante con un menú y una lista de pedidos vacía
         self.menu = Menu()
         self.orders = []
+        self.discount = 0  # Porcentaje de descuento aplicado
 
-    def take_order(self, item, quantity):
-        # Método para tomar un pedido del cliente
-        item = item.lower()
-        if item in self.menu.menu_items:
-            total_price = self.menu.place_order(item, quantity)
-            if total_price is not None:
-                self.orders.append((item, quantity, total_price))
-                return f"Pedido añadido: {quantity} {item}(s), Total: ${total_price}"
-            else:
-                return "¡Lo siento, ese plato no está en el menú!"
+    def apply_discount(self, discount_code):
+        valid_discounts = {"PROMO10": 10, "PROMO20": 20}
+        if discount_code in valid_discounts:
+            self.discount = valid_discounts[discount_code]
+            return f"¡Descuento del {self.discount}% aplicado!"
         else:
-            return "¡Lo siento, ese plato no está en el menú!"
-
-    def display_orders(self):
-        # Método para mostrar los pedidos realizados
-        orders_text = "---- Pedidos ----\n"
-        for item, quantity, total_price in self.orders:
-            orders_text += f"{quantity} {item}(s), Total: ${total_price}\n"
-        return orders_text
+            return "Código de descuento no válido."
 
     def finalizar_pedido(self):
+        # Método actualizado con soporte para descuentos
+
     if self.orders:
         final_summary = "¡Gracias por su pedido! Aquí está el resumen final:\n"
         final_summary += self.display_orders()
